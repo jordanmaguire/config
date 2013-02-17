@@ -13,4 +13,4 @@
   status = auto
   branch = auto
 [core]
-  excludesfile = ~/.gitignore_global
+  excludesfile = ~/.global_gitignore
