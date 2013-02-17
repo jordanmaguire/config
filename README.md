@@ -4,7 +4,7 @@ This is a collection of my dot files and other configuration for my macs.
 
 ## Usage
 
-First: A disclaimer. All operations in this script use the force command. That means you config files will be overwritten. I recommend you make a backup first.
+First: A disclaimer. All operations in this script use the force command. That means your config files will be overwritten. I recommend you make a backup first.
 
 `./install.rb` will run the script to setup all the necessary symlinks.
 
