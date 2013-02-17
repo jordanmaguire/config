@@ -15,7 +15,7 @@ def notice(message)
   puts message
 end
 
-CONFIG_FILES = [".ackrc", ".bash_profile", ".gemrc", ".gitconfig", ".global_gitignore", ".redebugrc"]
+CONFIG_FILES = [".ackrc", ".bash_profile", ".bash_profile_colours", ".gemrc", ".gitconfig", ".global_gitignore", ".redebugrc"]
 SUBL_FILES = ["Preferences.sublime-settings", "Default (OSX).sublime-keymap"]
 SUBL_PATH = ["Library", "Application Support", "Sublime Text 2", "Packages", "User"]
 
