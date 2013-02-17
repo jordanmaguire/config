@@ -15,6 +15,9 @@ PS1="\n$bldcyn\W $bldpur\$(parse_git_branch): $txtrst"
 alias .bash_profile="subl ~/.bash_profile"
 alias .gitconfig="subl ~/.gitconfig"
 
+# See . files using ls
+alias ls="ls -a"
+
 ## RAILS SPECIFIC
 alias devlog="tail -f -n 200 log/development.log"
 alias testlog="tail -f -n 200 log/test.log"
