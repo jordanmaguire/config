@@ -1,0 +1,16 @@
+[user]
+  name = Jordan Maguire
+  email = jmaguire@thefrontiergroup.com.au
+[alias]
+  br = branch
+  co = checkout
+  df = diff --color
+  st = status --porcelain
+[push]
+  default = tracking
+[color]
+  diff = auto
+  status = auto
+  branch = auto
+[core]
+  excludesfile = ~/.gitignore_global
