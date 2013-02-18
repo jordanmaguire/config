@@ -16,7 +16,7 @@ alias .bash_profile="subl ~/.bash_profile"
 alias .gitconfig="subl ~/.gitconfig"
 
 # See . files using ls
-alias ls="ls -a"
+alias ls="ls -ah"
 
 ## RAILS SPECIFIC
 alias devlog="tail -f -n 200 log/development.log"
