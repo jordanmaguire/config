@@ -6,6 +6,7 @@
   co = checkout
   df = diff --color
   st = status --porcelain
+  fuckit = reset head --hard
 [push]
   default = tracking
 [color]

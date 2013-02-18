@@ -33,7 +33,7 @@ export EDITOR=vi
 export NODE_PATH=/usr/local/lib/node:/usr/local/lib/node_modules
 
 # Required for homebrew
-PATH = "/usr/local/bin:$PATH"
+PATH="/usr/local/bin:$PATH:/usr/local/sbin"
 # Requires for subl
 PATH="~/bin:$PATH"
 
