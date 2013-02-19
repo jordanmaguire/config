@@ -4,6 +4,7 @@
 [alias]
   br = branch
   co = checkout
+  cp = cherry-pick
   df = diff --color
   st = status --porcelain
   fuckit = reset head --hard
