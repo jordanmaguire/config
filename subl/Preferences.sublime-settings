@@ -10,7 +10,9 @@
     "*.xib",
     "*.nib",
     "*.bridgesupport",
-    "*.o"
+    "*.o",
+    "*.repl_history",
+    "*.storyboard"
   ],
   "folder_exclude_patterns":
   [
@@ -19,7 +21,11 @@
     "coverage",
     "log",
     "results",
-    "pdfs/generated"
+    "pdfs/generated",
+    // RubyMotion
+    "vendor/Pods",
+    "vendor/Testflight",
+    "build/iPhone*"
   ],
   "font_size": 12.0,
   "tab_completion": false,
