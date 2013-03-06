@@ -1,34 +1,30 @@
 {
-  "color_scheme": "Packages/Color Scheme - Default/Monokai.tmTheme",
-  "file_exclude_patterns":
-  [
-    ".DS_Store",
-    // Rails
-    "rspec.xml",
-    // RubyMotion
-    ".dat*",
-    "*.xib",
-    "*.nib",
-    "*.bridgesupport",
-    "*.o",
-    "*.repl_history",
-    "*.storyboard"
-  ],
-  "folder_exclude_patterns":
-  [
-    ".git",
-    // Rails
-    "coverage",
-    "log",
-    "results",
-    "pdfs/generated",
-    // RubyMotion
-    "vendor/Pods",
-    "vendor/Testflight",
-    "build/iPhone*"
-  ],
-  "font_size": 12.0,
-  "tab_completion": false,
-  "tab_size": 2,
-  "translate_tabs_to_spaces": true
+	"color_scheme": "Packages/Color Scheme - Default/Monokai.tmTheme",
+	"file_exclude_patterns":
+	[
+		".DS_Store",
+		"rspec.xml",
+		".dat*",
+		"*.xib",
+		"*.nib",
+		"*.bridgesupport",
+		"*.o",
+		"*.repl_history",
+		"*.storyboard"
+	],
+	"folder_exclude_patterns":
+	[
+		".git",
+		"coverage",
+		"log",
+		"results",
+		"pdfs/generated",
+		"vendor/Pods",
+		"vendor/Testflight",
+		"build/iPhone*"
+	],
+	"font_size": 12.0,
+	"tab_completion": false,
+	"tab_size": 2,
+	"translate_tabs_to_spaces": true
 }
