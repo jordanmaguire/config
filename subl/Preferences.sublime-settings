@@ -1,4 +1,6 @@
 {
+  // Show folders in the side bar in bold
+  "bold_folder_labels": true,
 	"color_scheme": "Packages/Color Scheme - Default/Monokai.tmTheme",
 	"file_exclude_patterns":
 	[
@@ -28,7 +30,15 @@
 	[
 		"Vintage"
 	],
+  // When enabled, pressing tab will insert the best matching completion.
+  // When disabled, tab will only trigger snippets or insert a tab.
+  // Shift+tab can be used to insert an explicit tab when tab_completion is
+  // enabled.
 	"tab_completion": false,
+  // The number of spaces a tab is considered equal to
 	"tab_size": 2,
-	"translate_tabs_to_spaces": true
+  // Set to true to insert spaces when tab is pressed
+	"translate_tabs_to_spaces": true,
+  // Set to true to removing trailing white space on save
+  "trim_trailing_white_space_on_save": false
 }
