@@ -22,7 +22,7 @@ alias ls="ls -ah"
 alias devlog="tail -f -n 200 log/development.log"
 alias testlog="tail -f -n 200 log/test.log"
 alias be="bundle exec"
-alias fuckshitup="rake db:drop db:create db:migrate && rake db:seed db:test:prepare"
+alias fuckshitup="be rake db:drop db:create db:migrate && be rake db:seed db:test:prepare"
 alias fsu="fuckshitup"
 
 ## PROJECT SPECIFIC
