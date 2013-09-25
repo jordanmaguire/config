@@ -11,7 +11,8 @@
 		"*.bridgesupport",
 		"*.o",
 		"*.repl_history",
-		"*.storyboard"
+		"*.storyboard",
+		".keep"
 	],
 	"folder_exclude_patterns":
 	[
