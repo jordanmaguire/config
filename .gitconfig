@@ -9,7 +9,7 @@
   st = status --porcelain
   fuckit = reset head --hard
 [push]
-  default = tracking
+	default = upstream
 [color]
   diff = auto
   status = auto
