@@ -8,8 +8,9 @@
   df = diff --color
   st = status --porcelain
   fuckit = reset head --hard
+  rb = rebase --committer-date-is-author-date
 [push]
-	default = upstream
+  default = upstream
 [color]
   diff = auto
   status = auto
