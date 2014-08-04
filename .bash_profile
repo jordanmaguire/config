@@ -29,6 +29,9 @@ alias fsu="fuckshitup"
 ## PROJECT SPECIFIC
 alias work="cd ~/Work/"
 
+## GIT
+alias gp="git push"
+
 export EDITOR=vi
 
 # For node.js, see: https://github.com/replit/jsrepl/issues/56
