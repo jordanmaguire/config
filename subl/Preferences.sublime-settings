@@ -1,7 +1,7 @@
 {
 	"auto_complete_commit_on_tab": true,
 	"bold_folder_labels": true,
-	"color_scheme": "Packages/Color Scheme - Default/MaguireMonokai.tmTheme",
+	"color_scheme": "Packages/Color Scheme - Default/Monokai.tmTheme",
 	"file_exclude_patterns":
 	[
 		".DS_Store",
@@ -11,8 +11,7 @@
 		"*.bridgesupport",
 		"*.o",
 		"*.repl_history",
-		".keep",
-		"*.sql"
+		".keep"
 	],
 	"folder_exclude_patterns":
 	[
@@ -21,8 +20,7 @@
 		"apidocs",
 		"tmp",
 		"coverage",
-		"log",
-		"results",
+		"app/log",
 		"pdfs/generated",
 		"vendor/Pods",
 		"vendor/Testflight",
