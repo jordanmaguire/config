@@ -12,7 +12,7 @@
 		"*.o",
 		"*.repl_history",
 		".keep",
-		"*.sql"
+		"*.svg"
 	],
 	"folder_exclude_patterns":
 	[
