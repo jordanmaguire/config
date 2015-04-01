@@ -9,6 +9,7 @@ Thumbs.db
 
 # Rails
 .powrc
+.powenv
 
 # RubyMotion
 dump.rdb*
