@@ -16,7 +16,7 @@ def notice(message)
 end
 
 CONFIG_FILES = [".ackrc", ".bash_profile", ".bash_profile_colours", ".gemrc", ".gitconfig", ".global_gitignore", ".rdebugrc"]
-SUBL_FILES = ["Preferences.sublime-settings", "Default (OSX).sublime-keymap"]
+SUBL_FILES = ["Preferences.sublime-settings", "Default (OSX).sublime-keymap", "Maguire.tmTheme"]
 SUBL_PATH = ["Library", "Application Support", "Sublime Text 2", "Packages", "User"]
 
 heading "Adding symlinks for config files in home directory"
