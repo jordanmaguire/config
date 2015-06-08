@@ -1,7 +1,7 @@
 {
 	"auto_complete_commit_on_tab": true,
 	"bold_folder_labels": true,
-	"color_scheme": "Packages/Color Scheme - Default/Monokai.tmTheme",
+	"color_scheme": "Packages/Color Scheme - Default/MaguireMonokai.tmTheme",
 	"file_exclude_patterns":
 	[
 		".DS_Store",
@@ -12,7 +12,9 @@
 		"*.o",
 		"*.repl_history",
 		".keep",
-		"*.svg"
+		"*.svg",
+		"*.log",
+		"doc/*.html"
 	],
 	"folder_exclude_patterns":
 	[
