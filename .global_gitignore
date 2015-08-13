@@ -13,3 +13,10 @@ Thumbs.db
 
 # RubyMotion
 dump.rdb*
+
+# Objective-C & Swift
+*.ipa
+*.pbxuser
+*.xccheckout
+*.xcuserstate
+xcuserdata
