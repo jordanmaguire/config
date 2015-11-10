@@ -10,6 +10,7 @@ Thumbs.db
 # Rails
 .powrc
 .powenv
+.byebug_history
 
 # RubyMotion
 dump.rdb*
@@ -20,3 +21,6 @@ dump.rdb*
 *.xccheckout
 *.xcuserstate
 xcuserdata
+
+# LibreOffice
+*.~lock*
