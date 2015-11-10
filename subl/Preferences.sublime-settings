@@ -27,7 +27,8 @@
 		"pdfs/generated",
 		"vendor/Pods",
 		"vendor/Testflight",
-		"build/iPhone*"
+		"build/iPhone*",
+		"node_modules"
 	],
 	"font_size": 12.0,
 	"ignored_packages":
