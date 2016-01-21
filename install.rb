@@ -15,15 +15,17 @@ def notice(message)
   puts message
 end
 
-CONFIG_FILES = [".ackrc", ".bash_profile", ".bash_profile_colours", ".gemrc", ".gitconfig", ".global_gitignore", ".rdebugrc"]
 SUBL_FILES = ["Preferences.sublime-settings", "Default (OSX).sublime-keymap", "Maguire.tmTheme"]
 SUBL_PATH = ["Library", "Application Support", "Sublime Text 2", "Packages", "User"]
 
 heading "Adding symlinks for config files in home directory"
+Dir.glob("dot_files/.*").each do |file_path|
 
-CONFIG_FILES.each do |filename|
+  # Exclude "." and ".."
+  next if file_path.chars.last == "."
 
-  source      = File.join(FileUtils.pwd, filename)
+  source      = File.join(FileUtils.pwd, file_path)
+  filename    = file_path.split("/").last
   destination = File.expand_path("~/#{filename}")
 
   create_symlink(source, destination)
