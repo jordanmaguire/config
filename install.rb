@@ -15,8 +15,6 @@ def notice(message)
   puts message
 end
 
-SUBL_FILES = ["Preferences.sublime-settings", "Default (OSX).sublime-keymap", "Maguire.tmTheme"]
-SUBL_PATH = ["Library", "Application Support", "Sublime Text 2", "Packages", "User"]
 
 heading "Adding symlinks for config files in home directory"
 Dir.glob("dot_files/.*").each do |file_path|
@@ -33,11 +31,12 @@ Dir.glob("dot_files/.*").each do |file_path|
 end
 
 heading "Add symlink for sublime text 2 user preferences"
+Dir.glob("subl/**/*").each do |file_path|
 
-SUBL_FILES.each do |filename|
+  source = File.join(FileUtils.pwd, file_path)
 
-  source      = File.join(FileUtils.pwd, "subl", filename)
-  destination = File.join(File.expand_path("~/"), SUBL_PATH, filename)
+  filename = file_path.split("/").last
+  destination = File.join(File.expand_path("~/"), "Library", "Application Support", "Sublime Text 2", "Packages", "User", filename)
 
   create_symlink(source, destination)
 
