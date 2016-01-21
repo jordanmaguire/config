@@ -7,10 +7,14 @@
 ehthumbs.db
 Thumbs.db
 
+# Ruby
+*.gem
+
 # Rails
 .powrc
 .powenv
 .byebug_history
+.yardoc/*
 
 # RubyMotion
 dump.rdb*
