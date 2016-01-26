@@ -15,7 +15,9 @@
 		".keep",
 		"*.svg",
 		"*.log",
-		"doc/*.html"
+		"doc/*.html",
+		".byebug_history",
+		"spec/examples.txt"
 	],
 	"folder_exclude_patterns":
 	[
