@@ -2,10 +2,6 @@
 . ~/.bash_profile_colours
 
 function open_in_sapphire {
-  # local sapphire_url = "http://sapphire.thefrontiergroup.com.au/stories/${git name-rev --name-only HEAD | sed 's/[^0-9]*//g'}"
-  # $sapphire_url += git name-rev --name-only HEAD | sed 's/[^0-9]*//g'
-
-  # local story_id=git name-rev --name-only HEAD 2> /dev/null | sed 's/[^0-9]*//g'
   local story_id=`git name-rev --name-only HEAD 2> /dev/null | sed 's/[^0-9]*//g'`
   open "http://sapphire.thefrontiergroup.com.au/search/$story_id"
 }
