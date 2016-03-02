@@ -1,0 +1,10 @@
+function open_in_sapphire {
+  local story_id=`git name-rev --name-only HEAD 2> /dev/null | sed 's/[^0-9]*//g'`
+
+  if [[ "$story_id" == "" ]]; then
+    echo "Pivotal Tracker story ID required"
+    return 1
+  fi
+
+  open "http://sapphire.thefrontiergroup.com.au/search/$story_id"
+}
