@@ -16,6 +16,8 @@ PS1="\n$bldcyn\W $bldpur\$(parse_git_branch): $txtrst"
 alias .bash_profile="subl ~/.bash_profile"
 alias .gitconfig="subl ~/.gitconfig"
 
+alias prs="open https://github.com/pulls?user=thefrontiergroup"
+
 # See . files using ls
 alias ls="ls -ah"
 
