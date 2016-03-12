@@ -50,4 +50,3 @@ PATH="~/bin:$PATH"
 # Required for RVM
 [[ -s $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
 
-work
