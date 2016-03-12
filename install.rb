@@ -34,10 +34,13 @@ heading "Add symlink for sublime text 2 user preferences"
 Dir.glob("subl/**/*").each do |file_path|
 
   source = File.join(FileUtils.pwd, file_path)
+  if File.directory?(source)
+    notice("Skipping directory: #{source}")
+  else
+    filename = file_path.split("/").last
+    destination = File.join(File.expand_path("~/"), "Library", "Application Support", "Sublime Text 2", "Packages", "User", filename)
 
-  filename = file_path.split("/").last
-  destination = File.join(File.expand_path("~/"), "Library", "Application Support", "Sublime Text 2", "Packages", "User", filename)
-
-  create_symlink(source, destination)
+    create_symlink(source, destination)
+  end
 
 end
