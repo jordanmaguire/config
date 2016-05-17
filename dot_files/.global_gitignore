@@ -15,6 +15,7 @@ Thumbs.db
 .powenv
 .byebug_history
 .yardoc/*
+screenshot*.html
 
 # RubyMotion
 dump.rdb*
