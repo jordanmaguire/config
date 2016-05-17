@@ -30,6 +30,7 @@ alias bo="EDITOR=subl bundle open"
 alias bu="bundle update"
 alias fuckshitup="be rake db:drop db:create db:migrate && be rake db:seed db:test:prepare"
 alias fsu="fuckshitup"
+alias open_pow="open http://`basename $PWD`.dev/"
 alias unfuck_pow="rvm env . > .powenv"
 
 ## PROJECT SPECIFIC
