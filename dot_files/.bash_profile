@@ -2,6 +2,10 @@
 . ~/.bash_open_in_sapphire
 . ~/.bash_profile_colours
 
+function open_pow {
+  open http://`basename $PWD`.dev/
+}
+
 function parse_git_branch {
   git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
@@ -30,7 +34,6 @@ alias bo="EDITOR=subl bundle open"
 alias bu="bundle update"
 alias fuckshitup="be rake db:drop db:create db:migrate && be rake db:seed db:test:prepare"
 alias fsu="fuckshitup"
-alias open_pow="open http://`basename $PWD`.dev/"
 alias unfuck_pow="rvm env . > .powenv"
 
 ## PROJECT SPECIFIC
