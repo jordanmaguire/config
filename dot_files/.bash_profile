@@ -41,6 +41,8 @@ alias work="cd ~/Work/"
 
 ## GIT
 alias gp="git push"
+# This is a dumb library I made because I hate autocompleting branch names
+alias gco="git_smart_checkout"
 
 export EDITOR=vi
 
