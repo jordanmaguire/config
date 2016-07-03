@@ -23,6 +23,10 @@ function powify() {
   ln -s $PWD ~/.pow/${1:-$(basename $PWD | tr A-Z a-z)}
 }
 
+function smart_git_push() {
+  git push --set-upstream origin `git symbolic-ref --short HEAD`
+}
+
 PS1="\n$bldcyn\W $bldpur\$(parse_git_branch_for_PS1): $txtrst"
 
 alias .bash_profile="subl ~/.bash_profile"
@@ -49,7 +53,7 @@ alias work="cd ~/Work/"
 
 ## GIT
 alias gbr="git branch"
-alias gp="git push"
+alias gp="smart_git_push"
 alias gco="git_smart_checkout"
 alias gsp="git_smart_prune"
 
