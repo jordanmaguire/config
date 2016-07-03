@@ -40,9 +40,10 @@ alias unfuck_pow="rvm env . > .powenv"
 alias work="cd ~/Work/"
 
 ## GIT
+alias gbr="git branch"
 alias gp="git push"
-# This is a dumb library I made because I hate autocompleting branch names
 alias gco="git_smart_checkout"
+alias gsp="git_smart_prune"
 
 export EDITOR=vi
 
