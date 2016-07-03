@@ -6,7 +6,12 @@ function open_pow {
   open http://`basename $PWD`.dev/
 }
 
-function parse_git_branch {
+function parse_git_branch_for_PS1 {
+  # Ignores errors (EG: Not in a git repo):
+  #   2> /dev/null
+  #
+  # Wrap the output in brackets for display in PS1
+  #   sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
   git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
 
@@ -15,7 +20,7 @@ function powify() {
   ln -s $PWD ~/.pow/${1:-$(basename $PWD | tr A-Z a-z)}
 }
 
-PS1="\n$bldcyn\W $bldpur\$(parse_git_branch): $txtrst"
+PS1="\n$bldcyn\W $bldpur\$(parse_git_branch_for_PS1): $txtrst"
 
 alias .bash_profile="subl ~/.bash_profile"
 alias .gitconfig="subl ~/.gitconfig"
