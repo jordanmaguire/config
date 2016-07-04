@@ -53,9 +53,10 @@ alias work="cd ~/Work/"
 
 ## GIT
 alias gbr="git branch"
-alias gp="git push"
-alias gpu="smart_git_push" # git push upstream
 alias gco="git_smart_checkout"
+alias gp="git push"
+alias gpl="git pull"
+alias gpu="smart_git_push" # git push upstream
 alias gsp="git_smart_prune"
 alias gst="git status"
 
