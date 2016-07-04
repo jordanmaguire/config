@@ -57,6 +57,7 @@ alias gp="git push"
 alias gpu="smart_git_push" # git push upstream
 alias gco="git_smart_checkout"
 alias gsp="git_smart_prune"
+alias gst="git status"
 
 export EDITOR=vi
 
