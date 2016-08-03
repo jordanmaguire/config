@@ -57,6 +57,7 @@ alias gco="git_smart_checkout"
 alias gp="git push"
 alias gpl="git pull"
 alias gpu="smart_git_push" # git push upstream
+alias gsm="git_smart_merge"
 alias gsp="git_smart_prune"
 alias gst="git status"
 
