@@ -2,7 +2,11 @@
 . ~/.bash_open_in_sapphire
 . ~/.bash_profile_colours
 
-function open_pow {
+function pow_create {
+  ln -s $PWD ~/.pow/${1:-$(basename $PWD | tr A-Z a-z)}
+}
+
+function pow_open {
   open http://`basename $PWD`.dev/
 }
 
@@ -18,10 +22,6 @@ function parse_git_branch_for_PS1 {
   git symbolic-ref --short HEAD 2> /dev/null | sed -e 's/\(.*\)/(\1)/'
 }
 
-# Create a POW entry for the current site
-function powify() {
-  ln -s $PWD ~/.pow/${1:-$(basename $PWD | tr A-Z a-z)}
-}
 
 function smart_git_push() {
   git push --set-upstream origin `git symbolic-ref --short HEAD`
