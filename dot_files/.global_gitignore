@@ -17,6 +17,7 @@ Thumbs.db
 .yardoc/*
 screenshot*.html
 .rspec-local
+stdout
 
 # RubyMotion
 dump.rdb*
