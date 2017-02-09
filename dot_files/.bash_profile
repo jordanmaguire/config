@@ -45,7 +45,8 @@ alias be="bundle exec"
 alias bo="EDITOR=subl bundle open"
 alias bu="bundle update"
 alias fuckshitup="be rake db:drop db:create db:migrate && be rake db:seed db:test:prepare"
-alias fsu="fuckshitup"
+# alias fsu="fuckshitup"
+alias fs="foreman start"
 alias unfuck_pow="rvm env . > .powenv"
 
 ## PROJECT SPECIFIC
