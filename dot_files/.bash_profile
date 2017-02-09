@@ -50,6 +50,7 @@ alias fs="foreman start"
 alias unfuck_pow="rvm env . > .powenv"
 
 ## PROJECT SPECIFIC
+alias app="cd ~/src/interexchange/app"
 alias work="cd ~/Work/"
 
 ## GIT
