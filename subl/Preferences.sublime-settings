@@ -19,6 +19,7 @@
 		"doc/*.html",
 		".byebug_history",
 		"spec/examples.txt",
+		"interexchange/app/examples.txt",
 		"*.pyc"
 	],
 	"folder_exclude_patterns":
@@ -26,9 +27,11 @@
 		".git",
 		".sass-cache",
 		"apidocs",
+		"bower_components",
 		"tmp",
 		"coverage",
 		"app/log",
+		"app/spec/screenshots",
 		"pdfs/generated",
 		"vendor/Pods",
 		"vendor/Testflight",
