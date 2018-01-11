@@ -85,3 +85,11 @@ fi
 
 # Required for direnv
 eval "$(direnv hook bash)"
+
+export NVM_DIR="$HOME/.nvm"
+  . "/usr/local/opt/nvm/nvm.sh"
+
+export NVM_DIR=~/.nvm
+source $(brew --prefix nvm)/nvm.sh
+export NODE_VERSION_PREFIX=v
+export NODE_VERSIONS=~/.nvm/versions/node
