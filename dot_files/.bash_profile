@@ -55,6 +55,7 @@ alias app="cd ~/src/interexchange/app"
 alias work="cd ~/Work/"
 
 ## GIT
+alias ga="git add"
 alias gbr="git branch"
 alias gco="git_smart_checkout"
 alias gp="git push"
