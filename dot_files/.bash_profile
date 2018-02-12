@@ -2,14 +2,6 @@
 . ~/.bash_open_in_sapphire
 . ~/.bash_profile_colours
 
-function pow_create {
-  ln -s $PWD ~/.pow/${1:-$(basename $PWD | tr A-Z a-z)}
-}
-
-function pow_open {
-  open http://`basename $PWD`.dev/
-}
-
 function parse_git_branch_for_PS1 {
   # Get branch name:
   #  git symbolic-ref --short HEAD
