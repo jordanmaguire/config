@@ -39,7 +39,7 @@ alias bu="bundle update"
 alias findroutes="rails routes | grep"
 alias fuckshitup="be rake db:drop db:create db:migrate && be rake db:seed db:test:prepare"
 # alias fsu="fuckshitup"
-alias fs="foreman start"
+alias hl="heroku local"
 alias schema="rails db:schema:dump"
 alias unfuck_pow="rvm env . > .powenv"
 
@@ -54,9 +54,11 @@ alias gco="git_smart_checkout"
 alias gp="git push"
 alias gpl="git pull"
 alias gpu="smart_git_push" # git push upstream
+alias grc="git rebase --continue"
 alias gsm="git_smart_merge"
 alias gsp="git_smart_prune"
 alias gst="git status"
+alias diffupstream="git diff @{upstream}"
 
 export EDITOR=vi
 
