@@ -1,5 +1,4 @@
 # Include the bash profile colours
-. ~/.bash_open_in_sapphire
 . ~/.bash_profile_colours
 
 function parse_git_branch_for_PS1 {
@@ -23,9 +22,6 @@ PS1="\n$bldcyn\W $bldpur\$(parse_git_branch_for_PS1): $txtrst"
 
 alias .bash_profile="subl ~/.bash_profile"
 alias .gitconfig="subl ~/.gitconfig"
-
-alias sapphire="open_in_sapphire"
-alias prs="open https://github.com/pulls?user=thefrontiergroup"
 
 # See . files using ls
 alias ls="ls -ah"
