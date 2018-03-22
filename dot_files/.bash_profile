@@ -37,7 +37,6 @@ alias fuckshitup="be rake db:drop db:create db:migrate && be rake db:seed db:tes
 # alias fsu="fuckshitup"
 alias hl="heroku local"
 alias schema="rails db:schema:dump"
-alias unfuck_pow="rvm env . > .powenv"
 
 ## PROJECT SPECIFIC
 alias app="cd ~/src/interexchange/app"
