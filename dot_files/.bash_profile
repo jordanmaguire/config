@@ -89,3 +89,4 @@ export NVM_DIR=~/.nvm
 source $(brew --prefix nvm)/nvm.sh
 export NODE_VERSION_PREFIX=v
 export NODE_VERSIONS=~/.nvm/versions/node
+export PATH="/usr/local/opt/postgresql@9.6/bin:$PATH"
