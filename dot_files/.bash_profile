@@ -23,6 +23,7 @@ PS1="\n$bldcyn\W $bldpur\$(parse_git_branch_for_PS1): $txtrst"
 alias .bash_profile="subl ~/.bash_profile"
 alias .gitconfig="subl ~/.gitconfig"
 
+alias findp="ps aux | grep "
 # See . files using ls
 alias ls="ls -ah"
 
