@@ -47,6 +47,7 @@ alias work="cd ~/Work/"
 alias ga="git add"
 alias gbr="git branch"
 alias gco="git_smart_checkout"
+alias gcom="git co master"
 alias gp="git push"
 alias gpl="git pull"
 alias gpu="smart_git_push" # git push upstream
