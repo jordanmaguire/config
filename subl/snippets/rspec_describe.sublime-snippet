@@ -1,7 +1,7 @@
 <snippet>
   <content><![CDATA[
-describe "${1:description}" do
-  ${2}
+describe "#${1:method_name}" do
+  subject { ${2:subject} }
 end
 ]]></content>
   <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
