@@ -59,6 +59,8 @@ alias gsm="git_smart_merge"
 alias gsp="git_smart_prune"
 alias gst="git status"
 alias diffupstream="git diff @{upstream}"
+alias newpr="open https://github.com/interexchange/app/pull/new/`git symbolic-ref --short HEAD`"
+alias openpr="open https://github.com/interexchange/app/pull/`git symbolic-ref --short HEAD`"
 
 export EDITOR=vi
 
