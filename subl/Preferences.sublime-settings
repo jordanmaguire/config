@@ -1,68 +1,68 @@
 {
-  "auto_complete_commit_on_tab": true,
-  "bold_folder_labels": true,
-  "detect_indentation": false,
-  "enable_tab_scrolling": false,
-  "ensure_newline_at_eof_on_save": true,
-  "file_exclude_patterns":
-  [
-    ".~lock*",
-    ".DS_Store",
-    "rspec.xml",
-    "bin/pdftk",
-    "wkhtmltopdf-amd64",
-    "libgcj.so.14",
-    ".dat*",
-    "*.min.js",
-    "*.nib",
-    "*.bridgesupport",
-    "*.o",
-    "*.repl_history",
-    ".keep",
-    "*.db",
-    "*.log",
-    "*.otf",
-    "*.pxm",
-    "*.woff",
-    "doc/*.html",
-    ".byebug_history",
-    "spec/examples.txt",
-    "interexchange/app/examples.txt",
-    "*.pyc",
-    "app/db/migrate/20161221170909_schema_dump.rb",
-    "app/db/migrate/20171031041938_schema_dump.rb",
-    "app/db/structure.sql"
-  ],
-  "folder_exclude_patterns":
-  [
-    ".git",
-    ".sass-cache",
-    "apidocs",
-    "bower_components",
-    "tmp",
-    "coverage",
-    "app/log",
-    "app/spec/screenshots",
-    "pdfs/generated",
-    "vendor/Pods",
-    "vendor/Testflight",
-    "build/iPhone*",
-    "node_modules",
-    "interexchange/app/public/javascripts",
-    "interexchange/app/public/stylesheets"
-  ],
-  "font_size": 12,
-  "ignored_packages":
-  [
-    "Vintage"
-  ],
-  "rulers":
-  [
-    100
-  ],
-  "tab_completion": false,
-  "tab_size": 2,
-  "translate_tabs_to_spaces": true,
-  "trim_trailing_white_space_on_save": false,
-  "word_wrap": false
+	"auto_complete_commit_on_tab": true,
+	"bold_folder_labels": true,
+	"detect_indentation": false,
+	"enable_tab_scrolling": false,
+	"ensure_newline_at_eof_on_save": true,
+	"file_exclude_patterns":
+	[
+		".~lock*",
+		".DS_Store",
+		"rspec.xml",
+		"bin/pdftk",
+		"wkhtmltopdf-amd64",
+		"libgcj.so.14",
+		".dat*",
+		"*.min.js",
+		"*.nib",
+		"*.bridgesupport",
+		"*.o",
+		"*.repl_history",
+		".keep",
+		"*.db",
+		"*.log",
+		"*.otf",
+		"*.pxm",
+		"*.woff",
+		"doc/*.html",
+		".byebug_history",
+		"spec/examples.txt",
+		"interexchange/app/examples.txt",
+		"*.pyc",
+		"app/db/migrate/20161221170909_schema_dump.rb",
+		"app/db/migrate/20171031041938_schema_dump.rb",
+		"app/db/structure.sql"
+	],
+	"folder_exclude_patterns":
+	[
+		".git",
+		".sass-cache",
+		"apidocs",
+		"bower_components",
+		"tmp",
+		"coverage",
+		"app/log",
+		"app/spec/screenshots",
+		"pdfs/generated",
+		"vendor/Pods",
+		"vendor/Testflight",
+		"build/iPhone*",
+		"node_modules",
+		"interexchange/app/public/javascripts",
+		"interexchange/app/public/stylesheets"
+	],
+	"font_size": 12,
+	"ignored_packages":
+	[
+		"Vintage"
+	],
+	"rulers":
+	[
+		100
+	],
+	"tab_completion": false,
+	"tab_size": 2,
+	"translate_tabs_to_spaces": true,
+	"trim_trailing_white_space_on_save": false,
+	"word_wrap": false
 }
