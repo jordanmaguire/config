@@ -13,9 +13,16 @@ function parse_git_branch_for_PS1 {
   git symbolic-ref --short HEAD 2> /dev/null | sed -e 's/\(.*\)/(\1)/'
 }
 
-
 function smart_git_push() {
   git push --set-upstream origin `git symbolic-ref --short HEAD`
+}
+
+function newpr() {
+  open https://github.com/interexchange/app/pull/new/`git symbolic-ref --short HEAD`
+}
+
+function openpr() {
+  open https://github.com/interexchange/app/pull/`git symbolic-ref --short HEAD`
 }
 
 PS1="\n$bldcyn\W $bldpur\$(parse_git_branch_for_PS1): $txtrst"
@@ -59,8 +66,6 @@ alias gsm="git_smart_merge"
 alias gsp="git_smart_prune"
 alias gst="git status"
 alias diffupstream="git diff @{upstream}"
-alias newpr="open https://github.com/interexchange/app/pull/new/`git symbolic-ref --short HEAD`"
-alias openpr="open https://github.com/interexchange/app/pull/`git symbolic-ref --short HEAD`"
 
 export EDITOR=vi
 
