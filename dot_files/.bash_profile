@@ -62,6 +62,7 @@ alias gp="git push"
 alias gpl="git pull"
 alias gpu="smart_git_push" # git push upstream
 alias grc="git rebase --continue"
+alias grs="git rebase --skip"
 alias gsd="git_smart_branch_destroy"
 alias gsm="git_smart_merge"
 alias gsp="git_smart_prune"
