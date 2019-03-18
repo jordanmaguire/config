@@ -4,6 +4,7 @@
 
   // Plugins
   {"keys": ["ctrl+shift+t"], "command": "delete_trailing_spaces"},
+  {"keys": ["super+shift+o"], "command": "rails_related_files", "args": {"index": -1 }},
 
   // Switch pane, by default these are ctrl+shift+1
   {"keys": ["super+shift+1"], "command": "move_to_group", "args": { "group": 0 }},
