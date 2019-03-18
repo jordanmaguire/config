@@ -45,6 +45,7 @@ alias fs="foreman start -m web=1,resque=1,watch=1,serve=1"
 alias fuckshitup="be rake db:drop db:create db:migrate && be rake db:seed db:test:prepare"
 # alias fsu="fuckshitup"
 alias hl="heroku local"
+alias migrate="rake db:migrate"
 alias schema="rails db:schema:dump"
 
 ## PROJECT SPECIFIC
