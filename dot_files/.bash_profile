@@ -13,6 +13,10 @@ function parse_git_branch_for_PS1 {
   git symbolic-ref --short HEAD 2> /dev/null | sed -e 's/\(.*\)/(\1)/'
 }
 
+function reseed() {
+  DB="iex_app_$(git symbolic-ref --short HEAD)" rake db:drop db:create && rake db:migrate && rake db:disable_logging db:start_time db:seed db:end_time
+}
+
 function smart_git_push() {
   git push --set-upstream origin `git symbolic-ref --short HEAD`
 }
