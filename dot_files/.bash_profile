@@ -86,6 +86,9 @@ PATH="/usr/local/bin:$PATH:/usr/local/sbin"
 # Requires for subl
 PATH="~/bin:$PATH"
 
+# Required for RVM
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
 # Required for 'bash-completion'
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
   . $(brew --prefix)/etc/bash_completion
@@ -102,5 +105,3 @@ source $(brew --prefix nvm)/nvm.sh
 export NODE_VERSION_PREFIX=v
 export NODE_VERSIONS=~/.nvm/versions/node
 
-# Required for RVM
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
