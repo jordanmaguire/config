@@ -15,10 +15,8 @@ def notice(message)
   puts message
 end
 
-
 heading "Adding symlinks for config files in home directory"
 Dir.glob("dot_files/.*").each do |file_path|
-
   # Exclude "." and ".."
   next if file_path.chars.last == "."
 
@@ -27,12 +25,10 @@ Dir.glob("dot_files/.*").each do |file_path|
   destination = File.expand_path("~/#{filename}")
 
   create_symlink(source, destination)
-
 end
 
 heading "Add symlink for sublime text 2 user preferences"
 Dir.glob("subl/**/*").each do |file_path|
-
   source = File.join(FileUtils.pwd, file_path)
   if File.directory?(source)
     notice("Skipping directory: #{source}")
@@ -42,5 +38,4 @@ Dir.glob("subl/**/*").each do |file_path|
 
     create_symlink(source, destination)
   end
-
 end
