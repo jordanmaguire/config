@@ -83,8 +83,6 @@ export NODE_PATH=/usr/local/lib/node:/usr/local/lib/node_modules
 
 # Required for Homebrew
 PATH="/usr/local/bin:$PATH:/usr/local/sbin"
-# Required for Postgres@10 via Homebrew
-PATH="/usr/local/opt/postgresql@10/bin:$PATH"
 # Requires for subl
 PATH="~/bin:$PATH"
 
