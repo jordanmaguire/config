@@ -27,7 +27,7 @@ Dir.glob("dot_files/.*").each do |file_path|
   create_symlink(source, destination)
 end
 
-heading "Add symlink for sublime text 2 user preferences"
+heading "Add symlink for Sublime Text 3 user preferences"
 Dir.glob("subl/**/*").each do |file_path|
   source = File.join(FileUtils.pwd, file_path)
   if File.directory?(source)
