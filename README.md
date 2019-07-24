@@ -17,3 +17,4 @@ Since I don't know of a way to get a manifest of my packages in source control, 
 This is an incomplete list.
 
 - [Sublime Gherkin Formatter](https://packagecontrol.io/packages/Gherkin%20(Cucumber)%20Formatter): Format example groups
+- [Rails OpenView](https://packagecontrol.io/packages/Rails%20OpenView): From a controller's action, jump to the ERB file or create a new ERB file for the view
