@@ -21,6 +21,12 @@ function reseed() {
   DB="iex_app_$(git symbolic-ref --short HEAD)" rake db:drop db:create && rake db:migrate && rake db:disable_logging db:start_time db:seed db:end_time
 }
 
+function get_backup_of_production() {
+  mv tmp/iex-app.dump tmp/iex-app.dump.old
+  heroku pg:backups:capture -a iex-app
+  curl -o tmp/iex-app.dump `heroku pg:backups:public-url -a iex-app`
+}
+
 function smart_git_push() {
   git push --set-upstream origin `git symbolic-ref --short HEAD`
 }
