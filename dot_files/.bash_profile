@@ -49,24 +49,16 @@ alias findp="ps aux | grep "
 alias ls="ls -ah"
 
 ## RAILS SPECIFIC
-alias devlog="tail -f -n 200 log/development.log"
-alias testlog="tail -f -n 200 log/test.log"
 alias be="bundle exec"
 alias bo="EDITOR=subl bundle open"
-alias bu="bundle update"
 alias copme="git ls-files -m | xargs ls -1 2>/dev/null | grep '\.rb$' | xargs rubocop"
 alias findroutes="rails routes | grep"
 alias fs="foreman start -m web=1,resque=1,watch-styles=1,webpack=1"
-alias fss="foreman start -m web=1,watch=1,serve=1"
-alias fuckshitup="rake db:drop db:create && rake db:migrate && rake db:disable_logging db:start_time db:seed db:end_time"
-# alias fsu="fuckshitup"
-alias hl="heroku local"
 alias migrate="rake db:migrate"
 alias schema="rails db:schema:dump"
 
 ## PROJECT SPECIFIC
 alias app="cd ~/src/interexchange/app"
-alias work="cd ~/Work/"
 
 ## GIT
 alias ga="git add"
