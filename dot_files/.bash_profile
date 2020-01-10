@@ -60,6 +60,8 @@ alias app="cd ~/src/interexchange/app"
 alias reseed="USE_BRANCH_DB=true rake db:drop db:create && rake db:migrate && rake db:disable_logging db:environment_with_class_caching db:start_time db:seed db:end_time"
 
 ## GIT
+alias commits_since_master="git log master..HEAD --oneline"
+alias csm="commits_since_master"
 alias ga="git add"
 alias gbr="git branch"
 alias gco="git_smart_checkout"
