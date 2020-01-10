@@ -57,6 +57,7 @@ alias schema="rails db:schema:dump"
 
 ## PROJECT SPECIFIC
 alias app="cd ~/src/interexchange/app"
+alias fetch="git fetch staging; git fetch production"
 alias reseed="USE_BRANCH_DB=true rake db:drop db:create && rake db:migrate && rake db:disable_logging db:environment_with_class_caching db:start_time db:seed db:end_time"
 
 ## GIT
