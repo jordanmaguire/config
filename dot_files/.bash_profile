@@ -107,3 +107,7 @@ export NODE_VERSIONS=~/.nvm/versions/node
 
 # Required for RVM
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
+# Ruby turned off deprecations by default. This turns them on so we can resolve them.
+#   * https://github.com/ruby/ruby/pull/3273/
+export RUBYOPT='-W:deprecated'
