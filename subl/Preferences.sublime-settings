@@ -46,13 +46,22 @@
 		"node_modules",
 		"pdfs/generated",
 		"public/packs*",
+		"public/pghero*",
 		"tmp",
 		"vendor/Pods",
 		"vendor/Testflight"
 	],
-	"font_size": 12,
+	"font_face": "JetBrains Mono",
+	"font_options":
+	[
+		"no_liga",
+		"no_clig",
+		"no_calt"
+	],
+	"font_size": 14,
 	"ignored_packages":
 	[
+		"Package Control",
 		"Pascal",
 		"Vintage"
 	],
@@ -62,6 +71,7 @@
 	],
 	"tab_completion": false,
 	"tab_size": 2,
+	"theme": "Default.sublime-theme",
 	"translate_tabs_to_spaces": true,
 	"trim_trailing_white_space_on_save": false,
 	"word_wrap": false
