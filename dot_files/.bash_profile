@@ -8,9 +8,13 @@ function parse_git_branch_for_PS1 {
   # Ignores errors (EG: Not in a git repo):
   #   2> /dev/null
   #
-  # Wrap the output in brackets for display in PS1
+  # Wrap the output in brackets for display in PS1:
   #   sed -e 's/\(.*\)/(\1)/'
   git symbolic-ref --short HEAD 2> /dev/null | sed -e 's/\(.*\)/(\1)/'
+}
+
+function cucudiff() {
+  cucumber $(git diff --name-only | grep .feature | tr '\r\n' ' ')
 }
 
 function dbreset() {
