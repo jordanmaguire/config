@@ -35,6 +35,10 @@ function openpr() {
   open https://github.com/interexchange/app/pull/`git symbolic-ref --short HEAD`
 }
 
+function rubocop_commit() {
+  rubocop -a `git diff-tree --no-commit-id --name-only -r $1 | tr '\r\n' ' '`
+}
+
 PS1="\n$bldcyn\W $bldpur\$(parse_git_branch_for_PS1): $txtrst"
 
 alias .bash_profile="subl ~/.bash_profile"
