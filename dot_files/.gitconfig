@@ -7,6 +7,8 @@
   cp = cherry-pick
   df = diff --color
   fi = reset head --hard
+  pl = pull
+  ps = push
   rb = rebase --committer-date-is-author-date
   st = status --porcelain
 [push]
@@ -25,3 +27,7 @@
 	required = true
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
+[pull]
+	rebase = false
+[push]
+  autoSetupRemote = true
