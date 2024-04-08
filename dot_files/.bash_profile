@@ -23,16 +23,8 @@ function get_backup_of_production() {
   curl -o tmp/iex-app.dump `heroku pg:backups:public-url -a iex-app`
 }
 
-function newpr() {
-  open https://github.com/interexchange/app/pull/new/`git symbolic-ref --short HEAD`
-}
-
-function openpr() {
-  open https://github.com/interexchange/app/pull/`git symbolic-ref --short HEAD`
-}
-
 function rubocop_commit() {
-  rubocop -a `git diff-tree --no-commit-id --name-only -r $1 | tr '\r\n' ' '`
+  rubocop -a `git diff-tree --no-commit-id --name-only -r $1 | grep "\.rb" | tr '\r\n' ' '`
 }
 
 PS1="\n$bldcyn\W $bldpur\$(parse_git_branch_for_PS1): $txtrst"
@@ -48,18 +40,14 @@ alias ls="ls -ah"
 ## RAILS SPECIFIC
 alias be="bundle exec"
 alias bo="EDITOR=subl bundle open"
-alias copme="git ls-files -m | xargs ls -1 2>/dev/null | grep '\.rb$' | xargs rubocop"
 alias cucu="bundle exec cucumber"
 alias findroutes="rails routes | grep "
 alias fr="findroutes"
-alias fs="foreman start -m web=1,resque=1,watch-styles=1,webpack=1"
-alias migrate="rake db:migrate"
-alias schema="rails db:schema:dump"
 
 ## PROJECT SPECIFIC
 alias app="cd ~/src/interexchange/app"
+alias passport="cd ~/src/interexchange/passport"
 alias fetch="git fetch staging; git fetch production"
-alias reseed="USE_BRANCH_DB=true rake db:drop db:create && rake db:migrate && rake db:disable_logging db:environment_with_class_caching db:start_time db:seed db:end_time"
 
 ## GIT
 alias commits_since_master="git log master..HEAD --oneline"
