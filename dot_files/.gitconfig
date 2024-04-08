@@ -17,7 +17,9 @@
   branch = auto
 [core]
   excludesfile = ~/.global_gitignore
-  editor = subl -n -w
+  # editor = subl -n -w
+  editor = code --wait
+  # editor=vim
 [filter "lfs"]
 	process = git-lfs filter-process
 	required = true
