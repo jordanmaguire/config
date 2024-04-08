@@ -6,7 +6,6 @@
   co = checkout
   cp = cherry-pick
   df = diff --color
-  fuckit = reset head --hard
   fi = reset head --hard
   rb = rebase --committer-date-is-author-date
   st = status --porcelain
