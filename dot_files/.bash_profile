@@ -17,10 +17,6 @@ function cucudiff() {
   cucumber $(git diff --name-only | grep .feature | tr '\r\n' ' ')
 }
 
-function dbreset() {
-  DB="iex_app_$(git symbolic-ref --short HEAD)" rake db:drop db:create && rake db:migrate
-}
-
 function get_backup_of_production() {
   mv tmp/iex-app.dump tmp/iex-app.dump.old
   heroku pg:backups:capture -a iex-app
