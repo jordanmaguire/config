@@ -76,6 +76,7 @@ export EDITOR=vi
 
 # Required for Homebrew
 PATH="/usr/local/bin:$PATH:/usr/local/sbin"
+eval "$(/opt/homebrew/bin/brew shellenv)"
 # Requires for subl
 PATH="~/bin:$PATH"
 
@@ -84,17 +85,36 @@ if [ -f $(brew --prefix)/etc/bash_completion ]; then
   . $(brew --prefix)/etc/bash_completion
 fi
 
+# NVM Configuration
 export NVM_DIR="$HOME/.nvm"
-  . "/usr/local/opt/nvm/nvm.sh"
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 export NVM_DIR=~/.nvm
 source $(brew --prefix nvm)/nvm.sh
 export NODE_VERSION_PREFIX=v
 export NODE_VERSIONS=~/.nvm/versions/node
 
-# Required for RVM
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-
 # Ruby turned off deprecations by default. This turns them on so we can resolve them.
 #   * https://github.com/ruby/ruby/pull/3273/
 export RUBYOPT='-W:deprecated'
+
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+
+# Postgres Configuration for interexchange/services container
+export PGHOST="localhost"
+export PGUSER="postgres"
+
+# https://stackoverflow.com/questions/59632283/chromedriver-capybara-too-many-open-files-socket2-for-127-0-0-1-port-951/61892983#61892983
+ulimit -Sn 10240
+
+# Required for RVM
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
+eval "$(direnv hook bash)"
+
+export PATH="/usr/local/opt/mysql-client/bin:$PATH"
+export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
+
+# Added by OrbStack: command-line tools and integration
+source ~/.orbstack/shell/init.bash 2>/dev/null || :
