@@ -23,10 +23,6 @@ function get_backup_of_production() {
   curl -o tmp/iex-app.dump `heroku pg:backups:public-url -a iex-app`
 }
 
-function smart_git_push() {
-  git push --set-upstream origin `git symbolic-ref --short HEAD`
-}
-
 function newpr() {
   open https://github.com/interexchange/app/pull/new/`git symbolic-ref --short HEAD`
 }
@@ -75,7 +71,6 @@ alias gcom="git co master"
 alias gcop="git co -"
 alias gp="git push"
 alias gpl="git pull"
-alias gpu="smart_git_push" # git push upstream
 alias gra="git rebase --abort"
 alias grc="git rebase --continue"
 alias grs="git rebase --skip"
