@@ -26,16 +26,3 @@ Dir.glob("dot_files/.*").each do |file_path|
 
   create_symlink(source, destination)
 end
-
-heading "Add symlink for Sublime Text 3 user preferences"
-Dir.glob("subl/**/*").each do |file_path|
-  source = File.join(FileUtils.pwd, file_path)
-  if File.directory?(source)
-    notice("Skipping directory: #{source}")
-  else
-    filename = file_path.split("/").last
-    destination = File.join(File.expand_path("~/"), "Library", "Application Support", "Sublime Text 3", "Packages", "User", filename)
-
-    create_symlink(source, destination)
-  end
-end
