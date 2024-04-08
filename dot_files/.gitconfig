@@ -31,3 +31,6 @@
 	rebase = false
 [push]
   autoSetupRemote = true
+[safe]
+	directory = /Users/jmaguire/OrbStack/docker/containers/app/workspaces/app
+	directory = /Users/jmaguire/OrbStack/docker/volumes/vsc-remote-containers/app
