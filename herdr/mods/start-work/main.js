@@ -46,13 +46,15 @@ async function worktreeRoot() {
 export default class StartWork extends View {
   init(_props, cx) {
     this.error = "";
+    this.turn = 0; // the latest look(); an older one's answer is dropped
+    this.found = null; // the last plan() for what's typed now; null until it answers
     this.step = ""; // what it is doing now; empty when idle
     this.focused = "issue";
     this.fields = {};
     this.values = { issue: "", what: "" };
     const field = (name, placeholder) => {
       const input = InputState.new({ value: "", placeholder });
-      input.on("change", (_e, cx) => { this.values[name] = input.value(); this.error = ""; cx.notify(); });
+      input.on("change", (_e, cx) => { this.values[name] = input.value(); this.error = ""; this.look(cx); cx.notify(); });
       input.on("submit", (_e, cx) => this.go(cx));
       input.on("focus", (_e, cx) => { this.focused = name; cx.notify(); });
       this.fields[name] = input;
@@ -64,6 +66,21 @@ export default class StartWork extends View {
     cx.timer.after(150, () => this.fields[this.focused].focus());
     // Where the person is now decides the repo; read it before the dialog takes focus.
     this.from = panes().find((p) => p.focused)?.cwd ?? null;
+  }
+
+  // Once typing pauses, find out what the fields would start and what already exists.
+  look(cx) {
+    const turn = ++this.turn;
+    this.found = null;
+    cx.spawn(async (cx) => {
+      await cx.sleep(400);
+      if (turn !== this.turn) return;
+      let found;
+      try { found = await this.plan(() => {}); } catch { found = null; }
+      if (turn !== this.turn) return;
+      this.found = found;
+      cx.notify();
+    });
   }
 
   go(cx) {
@@ -79,31 +96,35 @@ export default class StartWork extends View {
     });
   }
 
-  async work(cx, say) {
+  // What starting would do, without doing it: the repo, branch and Claude's task,
+  // and what already exists (the branch, its worktree, a space open on it).
+  // { error } when the fields don't say enough or GitHub can't be read.
+  async plan(say) {
     const issueText = this.values.issue.trim();
     const what = this.values.what.trim();
     const number = issueText ? issueNumber(issueText) : null;
-    if (issueText && !number) return "That should be a number, or a GitHub issue or pull request URL.";
-    if (!number && !what) return "Give an issue or pull request, a description, or both.";
+    if (issueText && !number) return { error: "That should be a number, or a GitHub issue or pull request URL." };
+    if (!number && !what) return { error: "Give an issue or pull request, a description, or both." };
 
     say("finding the repository…");
     const repo = (await mainCheckout(this.from)) ?? (await mainCheckout(`${home()}/${FALLBACK_REPO}`));
-    if (!repo) return `Not in a git repository, and ~/${FALLBACK_REPO} isn't one either.`;
+    if (!repo) return { error: `Not in a git repository, and ~/${FALLBACK_REPO} isn't one either.` };
 
     // pull: the pull request whose branch this work is on; null for a new branch.
-    let branch, task, pull = null;
+    let branch, task, pull = null, title = "";
     if (number) {
       say(`reading #${number}…`);
       // The issues endpoint answers for pull requests too, and says which it is.
       const r = await exec("gh", ["api", `repos/{owner}/{repo}/issues/${number}`], { cwd: repo });
-      if (r.code !== 0) return (r.stderr || `Couldn't read #${number}.`).trim();
+      if (r.code !== 0) return { error: (r.stderr || `Couldn't read #${number}.`).trim() };
       const issue = JSON.parse(r.stdout);
+      title = `${issue.pull_request ? "Pull request" : "Issue"} #${issue.number}: ${issue.title}`;
       let read;
       if (issue.pull_request) {
         const p = await exec("gh", ["pr", "view", number, "--json", "headRefName,isCrossRepository"], { cwd: repo });
-        if (p.code !== 0) return (p.stderr || `Couldn't read pull request #${number}.`).trim();
+        if (p.code !== 0) return { error: (p.stderr || `Couldn't read pull request #${number}.`).trim() };
         pull = JSON.parse(p.stdout);
-        if (pull.isCrossRepository) return `Pull request #${number} comes from a fork; its branch isn't on origin.`;
+        if (pull.isCrossRepository) return { error: `Pull request #${number} comes from a fork; its branch isn't on origin.` };
         branch = pull.headRefName;
         read = `We're working on pull request #${issue.number}: "${issue.title}", on its branch \`${branch}\`. Read it with \`gh pr view ${issue.number} --comments\` and \`gh pr diff ${issue.number}\`.`;
       } else {
@@ -115,17 +136,29 @@ export default class StartWork extends View {
       branch = kebab(what);
       task = what;
     }
-    if (!branch) return "That doesn't make a branch name. Use some letters or digits.";
+    if (!branch) return { error: "That doesn't make a branch name. Use some letters or digits." };
 
     // A pull request's branch may have slashes; the folder gets dashes, as Herdr's own worktrees do.
     let path = `${await worktreeRoot()}/${repo.split("/").at(-1)}/${branch.replace(/\//g, "-")}`;
     const listed = (await git(repo, ["worktree", "list", "--porcelain"])).out.split("\n\n").map((entry) => entry.split("\n"));
     const inMain = listed.some((lines) => lines[0] === `worktree ${repo}` && lines.includes(`branch refs/heads/${branch}`));
-    if (inMain) {
-      // The main checkout is already on this branch: git won't check it out twice, so work there.
-      path = repo;
-    } else if (!listed.some((lines) => lines[0] === `worktree ${path}`)) {
-      const exists = (await git(repo, ["show-ref", "--verify", "--quiet", `refs/heads/${branch}`])).ok;
+    // The main checkout is already on this branch: git won't check it out twice, so work there.
+    if (inMain) path = repo;
+    const worktree = inMain || listed.some((lines) => lines[0] === `worktree ${path}`);
+    const exists = worktree || (await git(repo, ["show-ref", "--verify", "--quiet", `refs/heads/${branch}`])).ok;
+    // A space is where its terminals are now: one with a terminal in this checkout is on it.
+    const tab = panes().find((p) => p.cwd === path || p.cwd?.startsWith(`${path}/`))?.tab;
+    const space = tab ? spaces().find((s) => s.tabs.some((t) => t.id === tab))?.id ?? null : null;
+    return { repo, branch, task, pull, title, path, worktree, exists, space };
+  }
+
+  async work(cx, say) {
+    const plan = await this.plan(say);
+    if (plan.error) return plan.error;
+    const { repo, branch, task, pull, path, worktree, exists, space: open } = plan;
+    // Already open: go there instead of starting a second Claude on the same checkout.
+    if (open) { run("space.select", { id: open }); return ""; }
+    if (!worktree) {
       let add = ["worktree", "add", path, branch];
       if (pull) {
         say("fetching the pull request's branch…");
@@ -178,7 +211,14 @@ export default class StartWork extends View {
     const t = theme();
     const issueText = this.values.issue.trim(), what = this.values.what.trim();
     const number = issueText ? issueNumber(issueText) : null;
-    const preview = issueText && !number ? "" : number ? `Branch: ${number}-<issue title>, or the pull request's own` : what ? `Branch: ${kebab(what)}` : "";
+    const f = this.found?.error ? null : this.found;
+    const preview = f ? `Branch: ${f.branch}`
+      : issueText && !number ? "" : number ? `Looking up #${number}…` : what ? `Branch: ${kebab(what)}` : "";
+    const state = !f ? ""
+      : f.space ? "Already open in a space. ↵ goes to it."
+      : f.worktree ? "The worktree already exists. ↵ opens a new space on it."
+      : f.exists ? "The branch already exists. ↵ makes a worktree on it."
+      : f.pull ? "New worktree on the pull request's branch." : "New branch and worktree.";
     const label = (text) => div().text_size(11.5).text_color(t.dim).child(text);
     const input = (name) => Input.new(this.fields[name]).h(36).px(10).items_center().rounded(8).border(1)
       .border_color(this.focused === name ? t.accent : t.input).bg(t.background).text_color(t.foreground);
@@ -192,7 +232,9 @@ export default class StartWork extends View {
       .child(input("issue"))
       .child(div().pt(4).child(label("Description")))
       .child(input("what"))
+      .when(Boolean(f?.title) && !this.error, (el) => el.child(div().text_size(11.5).text_color(t.muted).truncate().child(f.title)))
       .when(Boolean(preview) && !this.error, (el) => el.child(div().text_size(11.5).text_color(t.dim).truncate().child(preview)))
+      .when(Boolean(state) && !this.error, (el) => el.child(div().text_size(11.5).text_color(f.exists ? t.accent : t.dim).child(state)))
       .when(Boolean(this.error), (el) => el.child(div().text_color(t.blocked).child(this.error)))
       .child(div().flex_1())
       .child(h_flex().justify_end().gap(6).text_size(11).text_color(t.dim)
