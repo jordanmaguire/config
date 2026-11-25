@@ -146,15 +146,21 @@ export default class StartWork extends View {
     // A pull request's branch may have slashes; the folder gets dashes, as Herdr's own worktrees do.
     let path = `${await worktreeRoot()}/${repo.split("/").at(-1)}/${branch.replace(/\//g, "-")}`;
     const listed = (await git(repo, ["worktree", "list", "--porcelain"])).out.split("\n\n").map((entry) => entry.split("\n"));
-    const inMain = listed.some((lines) => lines[0] === `worktree ${repo}` && lines.includes(`branch refs/heads/${branch}`));
-    // The main checkout is already on this branch: git won't check it out twice, so work there.
-    if (inMain) path = repo;
-    const worktree = inMain || listed.some((lines) => lines[0] === `worktree ${path}`);
+    // Git checks a branch out once. Where it already is (the main checkout, a worktree made
+    // some other way), work there. A checkout whose folder isn't on this machine (one made
+    // inside a container, say) can't be gone to: it is left alone and a new one is forced here.
+    const held = listed.find((lines) => lines.includes(`branch refs/heads/${branch}`))?.[0].slice("worktree ".length);
+    let elsewhere = false;
+    if (held && held !== path) {
+      if ((await exec("test", ["-d", held])).code === 0) path = held;
+      else elsewhere = true;
+    }
+    const worktree = !elsewhere && listed.some((lines) => lines[0] === `worktree ${path}`);
     const exists = worktree || (await git(repo, ["show-ref", "--verify", "--quiet", `refs/heads/${branch}`])).ok;
     // A space is where its terminals are now: one with a terminal in this checkout is on it.
     const tab = panes().find((p) => p.cwd === path || p.cwd?.startsWith(`${path}/`))?.tab;
     const space = tab ? spaces().find((s) => s.tabs.some((t) => t.id === tab))?.id ?? null : null;
-    return { repo, branch, task, pull, title, path, worktree, exists, space };
+    return { repo, branch, task, pull, title, path, worktree, exists, space, elsewhere };
   }
 
   // What GitHub knows about a number: the issue, and for a pull request its branch.
@@ -172,7 +178,7 @@ export default class StartWork extends View {
   async work(cx, say) {
     const plan = await this.plan(say);
     if (plan.error) return plan.error;
-    const { repo, branch, task, pull, path, worktree, exists, space: open } = plan;
+    const { repo, branch, task, pull, path, worktree, exists, space: open, elsewhere } = plan;
     // Already open: go there instead of starting a second Claude on the same checkout.
     if (open) { run("space.select", { id: open }); return ""; }
     if (!worktree) {
@@ -193,6 +199,8 @@ export default class StartWork extends View {
         add = ["worktree", "add", "--no-track", "-b", branch, path, base];
       }
       say("creating the worktree…");
+      // --force: the branch's other checkout isn't on this machine.
+      if (elsewhere) add.splice(2, 0, "--force");
       const added = await git(repo, add, 600_000);
       if (!added.ok) return added.err || "git worktree add failed.";
     }
@@ -235,6 +243,7 @@ export default class StartWork extends View {
     const state = !f ? ""
       : f.space ? "Already open in a space. ⌘↵ goes to it."
       : f.worktree ? "The worktree already exists. ⌘↵ opens a new space on it."
+      : f.elsewhere ? "The branch is checked out somewhere not on this machine. ⌘↵ makes a worktree here."
       : f.exists ? "The branch already exists. ⌘↵ makes a worktree on it."
       : f.pull ? "New worktree on the pull request's branch." : "New branch and worktree.";
     const label = (text) => div().text_size(11.5).text_color(t.dim).child(text);

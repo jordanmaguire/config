@@ -38,8 +38,10 @@ Notes for agents working on this Herdr setup. Herdr never writes this file.
   - A new branch's worktree is made from a fresh `origin/<default branch>` without upstream
     tracking, at `<worktrees.directory>/<repo>/<branch>` (default `~/.herdr/worktrees`; slashes
     in a branch become dashes). An existing branch or worktree is reused, and a local branch
-    that already exists is not moved to the remote's. If the main checkout is already on the
-    branch, the space opens there.
+    that already exists is not moved to the remote's. If the branch is already checked out
+    (the main checkout, a worktree made some other way), the space opens there. If that
+    checkout's folder isn't on this machine (the dev container's `/workspaces/iex/...`
+    worktrees), it is left registered and a new worktree is forced here.
   - Description is a textarea: Enter is a new line there, cmd-Enter starts from either field,
     and Enter in the first field starts too.
   - GitHub is asked about a number once per dialog; editing the description asks nothing again.
