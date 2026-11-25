@@ -1,2 +1,7 @@
 - Favour dot points over prose in your responses when enumerating three or more items. Keep prose for reasoning and explanation, and for enumerations of one or two items.
 - Do not run rubocop - it rarely yields anything of value and it almost always slows down delivery
+- My config lives in `~/src/config` (github.com/jordanmaguire/config); many files under `~/.claude` and `~/.config` are symlinks into it. Committing and pushing changes there depends on how I asked:
+  - I directly asked for the change ("add X", "change Y to Z"): make it, then commit and push without asking. Commit only the files that change touched, leaving any other modified files alone.
+  - I'm asking how something could be done, exploring options, or we're still iterating on a solution: don't commit or push until we've agreed on the solution.
+  - If it isn't clear which applies, make the change and ask before pushing.
+- Before changing anything about Herdr (layouts, keys, settings, mods), read `~/.config/herdr-app/AGENTS.md` and the `AGENTS.local.md` beside it.
