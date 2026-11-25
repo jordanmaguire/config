@@ -40,6 +40,9 @@ Notes for agents working on this Herdr setup. Herdr never writes this file.
     in a branch become dashes). An existing branch or worktree is reused, and a local branch
     that already exists is not moved to the remote's. If the main checkout is already on the
     branch, the space opens there.
+  - Description is a textarea: Enter is a new line there, cmd-Enter starts from either field,
+    and Enter in the first field starts too.
+  - GitHub is asked about a number once per dialog; editing the description asks nothing again.
   - Once typing pauses, the dialog shows the issue or pull request title, the branch, and what
     already exists: the branch, its worktree, or a space open on it. If a space is already open
     on the checkout, Enter goes to it and starts nothing.

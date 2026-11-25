@@ -1,6 +1,6 @@
 {
   "place": "none",
-  "overlay": { "width": 520, "height": 390 },
+  "overlay": { "width": 520, "height": 450 },
   "palette": [
     { "title": "Start work…", "command": "mod.open", "args": { "name": "start-work" }, "words": "issue worktree space new claude" }
   ]

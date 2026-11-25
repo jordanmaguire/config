@@ -5,7 +5,7 @@
 // the left and a shell on the right.
 
 import { View, div } from "gpui-kit";
-import { v_flex, h_flex, InputState, Input } from "gpui-base";
+import { v_flex, h_flex, InputState, Input, TextareaState, Textarea } from "gpui-base";
 import { run, props, closeOverlay, theme, spaces, panes, exec, home, appHome, readTextFile } from "herdr";
 
 // Used when the focused terminal is not inside a git repository.
@@ -52,15 +52,22 @@ export default class StartWork extends View {
     this.focused = "issue";
     this.fields = {};
     this.values = { issue: "", what: "" };
-    const field = (name, placeholder) => {
-      const input = InputState.new({ value: "", placeholder });
-      input.on("change", (_e, cx) => { this.values[name] = input.value(); this.error = ""; this.look(cx); cx.notify(); });
-      input.on("submit", (_e, cx) => this.go(cx));
+    this.github = {}; // number -> what GitHub said about it, asked once per dialog
+    const field = (name, input) => {
+      input.on("change", (_e, cx) => {
+        this.values[name] = input.value();
+        this.error = "";
+        // With a number, the description changes only Claude's task: nothing to look up again.
+        if (name === "issue" || !issueNumber(this.values.issue.trim())) this.look(cx);
+        cx.notify();
+      });
+      // The description is several lines, so there Enter is a new line and only cmd-Enter starts.
+      input.on("submit", (e, cx) => { if (name === "issue" || e.secondary) this.go(cx); });
       input.on("focus", (_e, cx) => { this.focused = name; cx.notify(); });
       this.fields[name] = input;
     };
-    field("issue", "number or URL; blank for work without one");
-    field("what", "what you want to do");
+    field("issue", InputState.new({ value: "", placeholder: "number or URL; blank for work without one" }));
+    field("what", TextareaState.new({ value: "", placeholder: "what you want to do", rows: 4 }));
     this.handle = cx.focus_handle();
     this.fields.issue.focus();
     cx.timer.after(150, () => this.fields[this.focused].focus());
@@ -113,17 +120,15 @@ export default class StartWork extends View {
     // pull: the pull request whose branch this work is on; null for a new branch.
     let branch, task, pull = null, title = "";
     if (number) {
-      say(`reading #${number}…`);
-      // The issues endpoint answers for pull requests too, and says which it is.
-      const r = await exec("gh", ["api", `repos/{owner}/{repo}/issues/${number}`], { cwd: repo });
-      if (r.code !== 0) return { error: (r.stderr || `Couldn't read #${number}.`).trim() };
-      const issue = JSON.parse(r.stdout);
+      if (!this.github[number]) say(`reading #${number}…`);
+      // Kept as a promise, so a second ask while the first is out waits for it. A failure is asked again.
+      const asked = await (this.github[number] ??= this.ask(repo, number));
+      if (asked.error) { delete this.github[number]; return asked; }
+      const issue = asked.issue;
       title = `${issue.pull_request ? "Pull request" : "Issue"} #${issue.number}: ${issue.title}`;
       let read;
       if (issue.pull_request) {
-        const p = await exec("gh", ["pr", "view", number, "--json", "headRefName,isCrossRepository"], { cwd: repo });
-        if (p.code !== 0) return { error: (p.stderr || `Couldn't read pull request #${number}.`).trim() };
-        pull = JSON.parse(p.stdout);
+        pull = asked.pull;
         if (pull.isCrossRepository) return { error: `Pull request #${number} comes from a fork; its branch isn't on origin.` };
         branch = pull.headRefName;
         read = `We're working on pull request #${issue.number}: "${issue.title}", on its branch \`${branch}\`. Read it with \`gh pr view ${issue.number} --comments\` and \`gh pr diff ${issue.number}\`.`;
@@ -150,6 +155,18 @@ export default class StartWork extends View {
     const tab = panes().find((p) => p.cwd === path || p.cwd?.startsWith(`${path}/`))?.tab;
     const space = tab ? spaces().find((s) => s.tabs.some((t) => t.id === tab))?.id ?? null : null;
     return { repo, branch, task, pull, title, path, worktree, exists, space };
+  }
+
+  // What GitHub knows about a number: the issue, and for a pull request its branch.
+  async ask(repo, number) {
+    // The issues endpoint answers for pull requests too, and says which it is.
+    const r = await exec("gh", ["api", `repos/{owner}/{repo}/issues/${number}`], { cwd: repo });
+    if (r.code !== 0) return { error: (r.stderr || `Couldn't read #${number}.`).trim() };
+    const issue = JSON.parse(r.stdout);
+    if (!issue.pull_request) return { issue };
+    const p = await exec("gh", ["pr", "view", number, "--json", "headRefName,isCrossRepository"], { cwd: repo });
+    if (p.code !== 0) return { error: (p.stderr || `Couldn't read pull request #${number}.`).trim() };
+    return { issue, pull: JSON.parse(p.stdout) };
   }
 
   async work(cx, say) {
@@ -199,6 +216,7 @@ export default class StartWork extends View {
 
   key(e, cx) {
     if (e.key === "escape") { closeOverlay(props().overlay); cx.stop_propagation(); }
+    if (e.key === "enter" && e.modifiers?.platform) { this.go(cx); cx.stop_propagation(); }
     if (e.key === "tab") {
       this.focused = this.focused === "issue" ? "what" : "issue";
       this.fields[this.focused].focus();
@@ -215,13 +233,13 @@ export default class StartWork extends View {
     const preview = f ? `Branch: ${f.branch}`
       : issueText && !number ? "" : number ? `Looking up #${number}…` : what ? `Branch: ${kebab(what)}` : "";
     const state = !f ? ""
-      : f.space ? "Already open in a space. ↵ goes to it."
-      : f.worktree ? "The worktree already exists. ↵ opens a new space on it."
-      : f.exists ? "The branch already exists. ↵ makes a worktree on it."
+      : f.space ? "Already open in a space. ⌘↵ goes to it."
+      : f.worktree ? "The worktree already exists. ⌘↵ opens a new space on it."
+      : f.exists ? "The branch already exists. ⌘↵ makes a worktree on it."
       : f.pull ? "New worktree on the pull request's branch." : "New branch and worktree.";
     const label = (text) => div().text_size(11.5).text_color(t.dim).child(text);
-    const input = (name) => Input.new(this.fields[name]).h(36).px(10).items_center().rounded(8).border(1)
-      .border_color(this.focused === name ? t.accent : t.input).bg(t.background).text_color(t.foreground);
+    const input = (name) => (name === "what" ? Textarea.new(this.fields[name]).h(96).p(10) : Input.new(this.fields[name]).h(36).px(10).items_center())
+      .w_full().rounded(8).border(1).border_color(this.focused === name ? t.accent : t.input).bg(t.background).text_color(t.foreground);
     return v_flex().id("start-work").track_focus(this.handle).on_key_down((e, cx) => this.key(e, cx))
       .size_full().p(18).gap(8).bg(t.popover).text_size(13).text_color(t.foreground)
       .child(h_flex().items_center()
@@ -239,6 +257,6 @@ export default class StartWork extends View {
       .child(div().flex_1())
       .child(h_flex().justify_end().gap(6).text_size(11).text_color(t.dim)
         .when(Boolean(this.step), (el) => el.child(div().frames(["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"], 90)))
-        .child(this.step || "tab next field · ↵ start · esc cancel"));
+        .child(this.step || "tab next field · ⌘↵ start · esc cancel"));
   }
 }
