@@ -1,0 +1,14 @@
+# Starship prompt config for the Mac and dev containers, used via STARSHIP_CONFIG in
+# shell/aliases.sh. Hides the language/cloud segments so the prompt is just directory, branch
+# and git status.
+[nodejs]
+disabled = true
+
+[ruby]
+disabled = true
+
+[aws]
+disabled = true
+
+[git_status]
+stashed = ""

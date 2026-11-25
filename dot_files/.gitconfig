@@ -1,0 +1,38 @@
+[user]
+  name = Jordan Maguire
+  email = a.jordan.maguire@gmail.com
+[alias]
+  br = branch
+  co = checkout
+  cp = cherry-pick
+  df = diff --color
+  fi = reset head --hard
+  pl = pull
+  ps = push
+  rb = rebase --committer-date-is-author-date
+  st = status --porcelain
+[branch]
+  autoSetupMerge = simple
+[color]
+  diff = auto
+  status = auto
+  branch = auto
+[core]
+  excludesfile = ~/.global_gitignore
+[diff]
+	colorMoved = true
+	algorithm = histogram
+[pull]
+	rebase = false
+[push]
+  autoSetupRemote = true
+  default = simple
+[rebase]
+	autosquash = true
+[log]
+	abbrevcommit = true
+[credential "https://github.com"]
+    helper =
+	helper = !gh auth git-credential
+[url "https://github.com/"]
+    insteadOf = git@github.com:

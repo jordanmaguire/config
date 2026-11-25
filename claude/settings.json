@@ -1,0 +1,39 @@
+{
+  "env": {
+    "CLAUDE_CODE_PLUGIN_DIRS": "~/.claude/mods/jm-review-picker"
+  },
+  "permissions": {
+    "allow": [
+      "Read(//tmp/**)",
+      "Read(//private/tmp/**)"
+    ],
+    "deny": [
+      "Bash(git push *--no-verify*)",
+      "Bash(git ps *--no-verify*)",
+      "Bash(git -C * push *--no-verify*)",
+      "Bash(gp *--no-verify*)"
+    ],
+    "additionalDirectories": [
+      "/tmp"
+    ]
+  },
+  "model": "claude-opus-5-5",
+  "effortLevel": "high",
+  "extraKnownMarketplaces": {},
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "dusc-skills hook-session-start"
+          }
+        ]
+      }
+    ]
+  },
+  "tui": "fullscreen",
+  "voiceEnabled": true,
+  "remoteControlAtStartup": false,
+  "agentPushNotifEnabled": true
+}

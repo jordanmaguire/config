@@ -1,0 +1,3 @@
+# Repos on the host that get git_hooks/* linked in by install.sh, one path per line.
+# Dev containers don't read this: there, every repo under /workspaces gets the hooks.
+~/src/interexchange/app
