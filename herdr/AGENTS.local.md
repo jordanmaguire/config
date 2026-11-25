@@ -25,15 +25,21 @@ Notes for agents working on this Herdr setup. Herdr never writes this file.
 
 ## What exists
 
-- `mods/start-work` (`cmd-shift-n`, or "Start work" in the palette): two fields, Issue and
-  Description, at least one filled.
-  - Issue filled: the branch is `<number>-<issue title in kebab case>`. Claude is told to read
+- `mods/start-work` (`cmd-shift-n`, or "Start work" in the palette): two fields, Issue or pull
+  request and Description, at least one filled. The first takes a number, `#number` or a GitHub
+  URL; GitHub is asked whether the number is an issue or a pull request.
+  - An issue: the branch is `<number>-<issue title in kebab case>`. Claude is told to read
     the issue; with a description it is also told what I want, without one it reports its
     understanding and waits.
-  - Issue blank: the branch is the description in kebab case and the description is Claude's task.
-  - The worktree is made from a fresh `origin/<default branch>` without upstream tracking, at
-    `<worktrees.directory>/<repo>/<branch>` (default `~/.herdr/worktrees`). An existing branch
-    or worktree is reused.
+  - A pull request: the branch is the pull request's own, fetched from origin and tracking it.
+    Claude is told to read the pull request and its diff, then the same as for an issue. Pull
+    requests from forks are refused.
+  - Blank: the branch is the description in kebab case and the description is Claude's task.
+  - A new branch's worktree is made from a fresh `origin/<default branch>` without upstream
+    tracking, at `<worktrees.directory>/<repo>/<branch>` (default `~/.herdr/worktrees`; slashes
+    in a branch become dashes). An existing branch or worktree is reused, and a local branch
+    that already exists is not moved to the remote's. If the main checkout is already on the
+    branch, the space opens there.
   - The space opens with Claude on the left and a shell on the right.
   - The repo is the focused terminal's, falling back to `~/src/interexchange/app`.
 
